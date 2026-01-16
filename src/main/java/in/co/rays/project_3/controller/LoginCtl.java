@@ -161,12 +161,9 @@ public class LoginCtl extends BaseCtl {
 					ServletUtility.setErrorMessage("Invalid LoginId And Password!", request);
 				}
 
-			} catch (ApplicationException e1) {
+			} catch (ApplicationException | JDBCConnectionException e1) {
 				log.error(e1);
-//				ServletUtility.handleException(e, request, response);
-				e1.printStackTrace();
-				ServletUtility.setErrorMessage(e1.getClass().getName(), request);
-				ServletUtility.forward(getView(), request, response);
+				ServletUtility.handleException(e1, request, response);
 				return;
 			}
 
